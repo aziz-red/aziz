@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login</title>
+<style>
+    body{font-family:Tahoma,sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;color:#333}
+    .card{background:#fff;padding:20px;width:100%;max-width:320px;border-radius:10px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+    input,button{width:100%;box-sizing:border-box;padding:10px;margin:5px 0;border-radius:5px;border:1px solid #ddd}
+    button{background:#007bff;color:#fff;border:none;font-weight:bold;cursor:pointer} button:hover{background:#0056b3}
+    table{width:100%;font-size:12px;border-collapse:collapse;margin-top:5px} th,td{border:1px solid #eee;padding:5px}
+    summary{cursor:pointer;margin:8px 0;font-weight:bold;color:#555;list-style:none;outline:none} summary::-webkit-details-marker{display:none}
+    .err{color:red;font-size:12px;margin-bottom:5px;background:#ffe6e6;padding:5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="card">
+    <h2 style="margin:0 0 15px;color:#007bff">شبكة الواي فاي</h2>
+    
+    $(if error)<div class="err">$(error)</div>$(endif)
+    
+    <form action="$(link-login-only)" method="post">
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+        <input name="username" type="text" placeholder="رقم الكرت / المستخدم" required>
+        <input name="password" type="password" placeholder="كلمة المرور (اختياري)">
+        <button type="submit">تسجيل الدخول</button>
+    </form>
+
+    <details>
+        <summary>🔻 قائمة الأسعار والسرعات</summary>
+        <table>
+            <tr><th>الفئة</th><th>الوقت</th><th>السرعة</th><th>السعر</th></tr>
+            <tr><td>أبو 100</td><td>ساعتين</td><td>2 ميجا</td><td>100</td></tr>
+            <tr><td>أبو 200</td><td>يوم</td><td>4 ميجا</td><td>200</td></tr>
+            <tr><td>أبو 500</td><td>أسبوع</td><td>مفتوح</td><td>500</td></tr>
+        </table>
+    </details>
+
+    <details>
+        <summary>🔻 نقاط البيع</summary>
+        <div style="font-size:13px;text-align:right;margin-top:5px;line-height:1.6">
+            • بقالة الأمانة (الشارع العام)<br>
+            • سوبر ماركت التوفيق<br>
+            • مكتبة الطالب
+        </div>
+    </details>
+    <p style="font-size:10px;color:#888;margin-top:15px">للدعم الفني: 777000000</p>
+</div>
+</body>
+</html>
