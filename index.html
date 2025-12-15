@@ -50,7 +50,7 @@
             font-size: 0.9rem;
             white-space: nowrap;
             box-shadow: -4px 0 10px rgba(0,0,0,0.1);
-            z-index: 10; /* رفع الطبقة لتغطي على النص عند مروره */
+            z-index: 20; /* جعلناه أعلى من النص */
             position: relative;
         }
 
@@ -65,42 +65,41 @@
         }
 
         .ticker-content {
-            position: absolute; /* ضروري للتحكم الدقيق */
+            position: absolute;
             white-space: nowrap;
             will-change: transform;
-            /* المدة 25 ثانية، حركة خطية، تكرار لا نهائي */
-            animation: marquee-ltr 25s linear infinite;
             
-            /* الحيلة للبدء من المنتصف: تأخير بالسالب */
-            animation-delay: -12s; 
-
+            /* تم تعديل المدة لـ 20 ثانية لتكون أسرع قليلاً، يمكنك زيادتها لتبطيء الحركة */
+            animation: marquee-ltr 20s linear infinite;
+            
             color: #333;
             font-weight: 700;
             font-size: 0.95rem;
-            direction: ltr; 
-            text-align: right;
             
-            /* يضمن أن يأخذ النص عرضه الكامل ولا ينقص */
+            /* اتجاه النص داخلياً من اليمين لليسار ليظهر العربي صحيحاً */
+            direction: rtl; 
+            
+            /* يضمن أن يأخذ النص عرضه الكامل */
             width: max-content; 
-            min-width: 100%;
         }
         
         .ticker-text-fix {
             display: inline-block;
-            direction: rtl; 
-            padding-right: 50px; /* مسافة إضافية لضمان عدم الالتصاق */
+            /* إضافة مسافة يمين ويسار لضمان عدم الالتصاق */
+            padding: 0 20px; 
         }
 
-        /* تعريف الحركة: من اليسار لليمين */
+        /* --- تعريف الحركة المصحح: من اليسار لليمين --- */
         @keyframes marquee-ltr {
             0% { 
-                /* يبدأ من خارج الشاشة يساراً تماماً */
+                /* يبدأ مخفياً تماماً من اليسار */
                 transform: translateX(-100%); 
             }
             100% { 
-                /* ينتهي عند الخروج من يمين الشاشة */
-                /* 100vw هي عرض الشاشة، نضيف عليها هامش بسيط لضمان الاختفاء التام */
-                transform: translateX(100vw); 
+                /* ينتهي عند الخروج من اليمين تماماً */
+                /* المعادلة: عرض الشاشة + طول النص نفسه */
+                /* هذا يمنع اختفاء النص قبل اكتماله */
+                transform: translateX(calc(100vw + 100%)); 
             }
         }
 
@@ -110,7 +109,7 @@
             font-size: 1.1em;
         }
 
-        /* --- باقي التنسيقات (البطاقة، الأزرار، إلخ) --- */
+        /* --- باقي التنسيقات --- */
         .main-card {
             background: rgba(255, 255, 255, 0.95);
             width: 100%;
