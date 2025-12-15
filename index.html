@@ -19,10 +19,10 @@
             align-items: center;
             overflow-x: hidden;
             padding: 20px;
-            padding-top: 80px; /* زيادة المسافة العلوية لعدم تغطية الشريط */
+            padding-top: 80px; 
         }
 
-        /* --- شريط الأخبار (تعديل الاتجاه) --- */
+        /* --- شريط الأخبار --- */
         .news-ticker-container {
             position: fixed;
             top: 0;
@@ -31,7 +31,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            z-index: 9999; /* رفع الطبقة لتكون فوق كل شيء */
+            z-index: 9999;
             height: 50px;
             display: flex;
             align-items: center;
@@ -39,7 +39,7 @@
         }
 
         .ticker-label {
-            background: linear-gradient(to left, #FF512F, #DD2476); /* تدرج لوني مناسب */
+            background: linear-gradient(to left, #FF512F, #DD2476);
             color: white;
             padding: 0 20px;
             height: 100%;
@@ -50,7 +50,7 @@
             font-size: 0.9rem;
             white-space: nowrap;
             box-shadow: -4px 0 10px rgba(0,0,0,0.1);
-            z-index: 2;
+            z-index: 10; /* رفع الطبقة لتغطي على النص عند مروره */
             position: relative;
         }
 
@@ -61,42 +61,56 @@
             height: 100%;
             display: flex;
             align-items: center;
-            background: #fff; /* خلفية بيضاء للنص */
+            background: #fff;
         }
 
         .ticker-content {
+            position: absolute; /* ضروري للتحكم الدقيق */
             white-space: nowrap;
-            position: absolute;
             will-change: transform;
-            /* تعديل الاتجاه: الحركة من اليسار لليمين */
-            animation: marquee-ltr 25s linear infinite; 
+            /* المدة 25 ثانية، حركة خطية، تكرار لا نهائي */
+            animation: marquee-ltr 25s linear infinite;
+            
+            /* الحيلة للبدء من المنتصف: تأخير بالسالب */
+            animation-delay: -12s; 
+
             color: #333;
             font-weight: 700;
             font-size: 0.95rem;
-            direction: ltr; /* لضمان عدم تداخل النص العربي في الحركة */
+            direction: ltr; 
             text-align: right;
+            
+            /* يضمن أن يأخذ النص عرضه الكامل ولا ينقص */
+            width: max-content; 
+            min-width: 100%;
         }
         
-        /* كلاس لتصحيح اتجاه النص العربي داخل الحاوية المتحركة */
         .ticker-text-fix {
             display: inline-block;
-            direction: rtl; /* إعادة النص للعربية */
+            direction: rtl; 
+            padding-right: 50px; /* مسافة إضافية لضمان عدم الالتصاق */
         }
 
-        /* تعريف الحركة من اليسار إلى اليمين */
+        /* تعريف الحركة: من اليسار لليمين */
         @keyframes marquee-ltr {
-            0% { transform: translateX(-100%); } /* يبدأ مخفياً من اليسار */
-            100% { transform: translateX(100vw); } /* ينتهي مخفياً في اليمين */
+            0% { 
+                /* يبدأ من خارج الشاشة يساراً تماماً */
+                transform: translateX(-100%); 
+            }
+            100% { 
+                /* ينتهي عند الخروج من يمين الشاشة */
+                /* 100vw هي عرض الشاشة، نضيف عليها هامش بسيط لضمان الاختفاء التام */
+                transform: translateX(100vw); 
+            }
         }
 
-        /* فاصل بين الأخبار */
         .news-separator {
             margin: 0 25px;
             color: #DD2476;
             font-size: 1.1em;
         }
 
-        /* --- حاوية البطاقة الرئيسية --- */
+        /* --- باقي التنسيقات (البطاقة، الأزرار، إلخ) --- */
         .main-card {
             background: rgba(255, 255, 255, 0.95);
             width: 100%;
@@ -109,22 +123,14 @@
             text-align: center;
         }
 
-        /* إخفاء الأقسام غير النشطة */
-        .view-section {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .view-section.active {
-            display: block;
-        }
+        .view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .view-section.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- تنسيقات العناصر --- */
         h2, h3 { color: #333; margin-bottom: 15px; }
         .wifi-icon { font-size: 3.5rem; color: #DD2476; margin-bottom: 10px; }
         .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 25px; }
@@ -167,7 +173,6 @@
         }
         .error-msg { color: #ff4757; font-size: 0.85rem; margin-top: -10px; margin-bottom: 15px; display: none; font-weight: bold; }
 
-        /* --- تنسيق القوائم --- */
         .list-item {
             display: flex; justify-content: space-between; padding: 12px;
             background: #f8f9fa; border-radius: 8px; margin-bottom: 8px;
@@ -182,12 +187,10 @@
         .label { color: #777; } .value { font-weight: bold; color: #333; }
         .user-avatar { width: 70px; height: 70px; background: #eee; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #777; }
 
-        /* توافق للجوال */
         @media (max-width: 480px) {
             .ticker-label { padding: 0 10px; font-size: 0.8rem; }
             .ticker-content { font-size: 0.85rem; }
         }
-
     </style>
 </head>
 <body>
@@ -248,31 +251,26 @@
 
         <div id="view-branches" class="view-section">
             <h3><i class="fas fa-map-marker-alt" style="color:#DD2476"></i> الفروع والخدمات</h3>
-            
             <label style="display:block; text-align:right; margin-bottom:5px; font-size:0.9rem; color:#666;">اختر السرعة المفضلة:</label>
             <select id="speedSelectBranches">
                 <option>🚀 سرعة مفتوحة (VIP)</option>
                 <option>🎮 سرعة ألعاب (Gaming)</option>
                 <option>💰 سرعة اقتصادية</option>
             </select>
-
             <div style="text-align: right; margin-bottom: 15px;">
                 <h4 style="margin-bottom:10px; color:#555;">📍 فروعنا:</h4>
                 <div class="list-item"><span>الفرع الرئيسي</span> <span style="color:#777">شارع الخمسين</span></div>
                 <div class="list-item"><span>فرع الجامعة</span> <span style="color:#777">بجوار البوابة</span></div>
             </div>
-
             <div style="text-align: right; margin-bottom: 20px;">
                 <h4 style="margin-bottom:10px; color:#555;">🏷️ أسعار الكروت:</h4>
                 <div class="list-item"><span>باقة ساعة</span> <span class="price-tag">100 ريال</span></div>
                 <div class="list-item"><span>باقة يوم</span> <span class="price-tag">500 ريال</span></div>
                 <div class="list-item"><span>باقة أسبوع</span> <span class="price-tag">2000 ريال</span></div>
             </div>
-
             <button onclick="openWhatsApp()" class="btn btn-wa">
                 <i class="fab fa-whatsapp"></i> تواصل معنا (739367154)
             </button>
-            
             <button onclick="switchView('login')" class="btn btn-outline" style="margin-top: 10px;">
                 <i class="fas fa-arrow-right"></i> رجوع للرئيسية
             </button>
@@ -282,16 +280,13 @@
             <div class="success-icon"><i class="fas fa-check-circle"></i></div>
             <h2 style="color: #2ecc71;">تم تسجيل الدخول!</h2>
             <p class="subtitle">جاري تحويلك لصفحة المعلومات...</p>
-            <div style="margin-top: 20px;">
-                <i class="fas fa-spinner fa-spin" style="font-size: 20px; color: #ccc;"></i>
-            </div>
+            <div style="margin-top: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 20px; color: #ccc;"></i></div>
         </div>
 
         <div id="view-info" class="view-section">
             <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
             <h3 id="welcomeMsg">أهلاً بك</h3>
             <span style="color: #2ecc71; font-weight: bold; display: block; margin-bottom: 20px;">● متصل بالإنترنت</span>
-
             <div class="info-row">
                 <span class="label">رقم الكرت</span>
                 <span class="value" id="displayCardNumber">--</span>
@@ -308,12 +303,10 @@
                 <span class="label">عنوان IP</span>
                 <span class="value">192.168.88.15</span>
             </div>
-
             <button onclick="handleLogout()" class="btn btn-logout">
                 <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
             </button>
         </div>
-
     </div>
 
     <script>
@@ -348,24 +341,18 @@
             }
         }
 
-        // --- دالة عرض المعلومات المعدلة (نظام 12 ساعة) ---
         function showInfoPage(cardNum) {
             const now = new Date();
-            
-            // حساب الوقت بنظام 12 ساعة
             let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const ampm = hours >= 12 ? 'م' : 'ص'; // م = مساءً، ص = صباحاً
-            
+            const ampm = hours >= 12 ? 'م' : 'ص';
             hours = hours % 12;
-            hours = hours ? hours : 12; // الساعة 0 تصبح 12
-            
+            hours = hours ? hours : 12;
             const timeString = `${hours}:${minutes} ${ampm}`;
             
             document.getElementById('displayCardNumber').innerText = cardNum;
             document.getElementById('welcomeMsg').innerText = "المستخدم: " + cardNum;
             document.getElementById('startTime').innerText = timeString;
-            
             switchView('info');
         }
 
@@ -386,4 +373,3 @@
     </script>
 </body>
 </html>
-
