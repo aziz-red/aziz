@@ -93,13 +93,13 @@
         @keyframes marquee-ltr {
             0% { 
                 /* يبدأ مخفياً تماماً من اليسار */
-                transform: translateX(-50%); 
+                transform: translateX(-20%); 
             }
             100% { 
                 /* ينتهي عند الخروج من اليمين تماماً */
                 /* المعادلة: عرض الشاشة + طول النص نفسه */
                 /* هذا يمنع اختفاء النص قبل اكتماله */
-                transform: translateX(calc(100vw + 100%)); 
+                transform: translateX(calc(100vw + 50%)); 
             }
         }
 
@@ -372,6 +372,7 @@
     </script>
 </body>
 </html>
+
 
 
 
