@@ -3,263 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - عزيز نت</title>
+    <title>عزيز نت - تسجيل الدخول</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-        }
-
+        /* --- التنسيقات العامة --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        
         body {
-            background: linear-gradient(135deg, #FF512F, #DD2476); /* تدرج لوني برتقالي/أحمر */
-            height: 100vh;
+            background: linear-gradient(135deg, #FF512F, #DD2476);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* الحاوية الرئيسية (الكارد) */
-        .login-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px); /* تأثير الزجاج */
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* حاوية البطاقة الرئيسية */
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 420px;
             border-radius: 20px;
             padding: 30px 20px;
-            width: 90%;
-            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative;
+            transition: height 0.3s ease;
             text-align: center;
-            color: #fff;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         }
 
-        /* أيقونة الواي فاي */
-        .wifi-icon {
-            font-size: 3rem;
-            color: #00f2fe;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        /* إخفاء الأقسام غير النشطة */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
-        h2 {
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .moon-icon {
-            font-size: 1.5rem;
-            color: #f1c40f;
-            margin-bottom: 15px;
+        /* الكلاس النشط لإظهار القسم */
+        .view-section.active {
             display: block;
         }
 
-        .subtitle {
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-            opacity: 0.9;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        /* --- تنسيقات العناصر --- */
+        h2, h3 { color: #333; margin-bottom: 15px; }
+        .wifi-icon { font-size: 3.5rem; color: #DD2476; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 25px; }
 
         /* حقول الإدخال */
-        .input-group {
-            position: relative;
-            margin-bottom: 15px;
-        }
-
+        .input-group { position: relative; margin-bottom: 15px; }
         .input-field {
-            width: 100%;
-            padding: 15px;
-            padding-left: 40px; /* مساحة للأيقونة */
-            border: none;
-            border-radius: 10px;
-            background: #f0f0f0;
-            font-size: 1rem;
-            color: #333;
-            outline: none;
+            width: 100%; padding: 15px 40px 15px 15px;
+            border: 2px solid #eee; border-radius: 10px;
+            font-size: 1rem; outline: none; transition: 0.3s; background: #f9f9f9;
+        }
+        .input-field:focus { border-color: #DD2476; background: #fff; }
+        .input-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #999; }
+
+        /* القوائم المنسدلة */
+        select {
+            width: 100%; padding: 12px; border-radius: 10px;
+            border: 2px solid #eee; margin-bottom: 15px;
+            font-family: 'Tajawal'; background: white; cursor: pointer;
         }
 
-        .input-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #777;
+        /* الأزرار */
+        .btn {
+            width: 100%; padding: 15px; border: none; border-radius: 10px;
+            font-weight: bold; cursor: pointer; font-size: 1rem;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+            transition: transform 0.2s; text-decoration: none; color: white;
+            margin-bottom: 10px;
         }
+        .btn:active { transform: scale(0.98); }
+        
+        .btn-primary { background: linear-gradient(to right, #FF512F, #DD2476); box-shadow: 0 4px 15px rgba(221, 36, 118, 0.3); }
+        .btn-wa { background: #25D366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+        .btn-outline { background: transparent; border: 2px solid #eee; color: #555; }
+        .btn-logout { background: #ff4757; color: white; margin-top: 20px; }
 
-        /* القائمة المنسدلة الشكلية */
-        .select-box {
-            background: #f0f0f0;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            color: #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.95rem;
-        }
+        .secondary-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-small { flex: 1; padding: 10px; font-size: 0.9rem; border-radius: 8px; }
 
-        /* زر تسجيل الدخول */
-        .btn-login {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        /* --- تنسيقات الخطأ والاهتزاز --- */
+        .shake { animation: shake 0.5s; border-color: #ff4757 !important; background: #ffe0e3; }
+        @keyframes shake {
+            0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); }
         }
+        .error-msg { color: #ff4757; font-size: 0.85rem; margin-top: -10px; margin-bottom: 15px; display: none; font-weight: bold; }
 
-        .btn-login:hover {
-            transform: scale(1.02);
+        /* --- تنسيق صفحة الفروع --- */
+        .list-item {
+            display: flex; justify-content: space-between; padding: 12px;
+            background: #f8f9fa; border-radius: 8px; margin-bottom: 8px;
+            font-size: 0.9rem; border: 1px solid #eee;
         }
+        .price-tag { background: #333; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; }
 
-        /* الأزرار السفلية (فروع وباقات) */
-        .secondary-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        /* --- صفحة النجاح --- */
+        .success-icon { font-size: 5rem; color: #2ecc71; margin-bottom: 20px; animation: pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
 
-        .btn-secondary {
-            flex: 1;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        /* زر الواتساب */
-        .btn-whatsapp {
-            width: 100%;
-            padding: 12px;
-            background: #25D366;
-            border: none;
-            border-radius: 30px; /* دائري أكثر */
-            color: white;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
-        }
-
-        /* الشريط المتحرك في الأسفل */
-        .ticker-wrap {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #000;
-            color: white;
-            padding: 10px 0;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .ticker {
-            display: inline-block;
-            animation: marquee 15s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
+        /* --- صفحة المعلومات --- */
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .label { color: #777; } .value { font-weight: bold; color: #333; }
+        .user-avatar { width: 70px; height: 70px; background: #eee; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #777; }
 
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <div class="wifi-icon">
-            <i class="fas fa-wifi"></i>
+    <div class="main-card">
+        
+        <div id="view-login" class="view-section active">
+            <div class="wifi-icon"><i class="fas fa-wifi"></i></div>
+            <h2>أمسية سعيدة</h2>
+            <p class="subtitle">سجل دخولك واستمتع بالسرعة القصوى 🚀</p>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <input type="tel" id="cardInput" class="input-field" placeholder="رقم الكرت (مثال: 7166)" required>
+                    <i class="far fa-credit-card input-icon"></i>
+                </div>
+                <p id="errorText" class="error-msg"><i class="fas fa-circle-exclamation"></i> رقم الكرت خاطئ! حاول مرة أخرى.</p>
+
+                <select id="speedSelectMain">
+                    <option>🚀 سرعة مفتوحة (VIP)</option>
+                    <option>🎮 سرعة ألعاب (Gaming)</option>
+                    <option>💰 سرعة اقتصادية</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                </button>
+            </form>
+
+            <div class="secondary-actions">
+                <button onclick="switchView('branches')" class="btn btn-outline btn-small">
+                    <i class="fas fa-store"></i> الفروع والأسعار
+                </button>
+                <button onclick="openWhatsApp()" class="btn btn-wa btn-small">
+                    <i class="fab fa-whatsapp"></i> واتساب
+                </button>
+            </div>
         </div>
 
-        <h2>أمسية سعيدة في عزيز نت</h2>
-        <i class="fas fa-moon moon-icon"></i>
-        <p class="subtitle">🚀 سجل دخولك واستمتع بالسرعة القصوى</p>
-
-        <form id="loginForm" onsubmit="handleLogin(event)">
+        <div id="view-branches" class="view-section">
+            <h3><i class="fas fa-map-marker-alt" style="color:#DD2476"></i> الفروع والخدمات</h3>
             
-            <div class="input-group">
-                <input type="number" class="input-field" placeholder="رقم الكرت (مثال: 7166)" required>
-                <i class="far fa-credit-card input-icon"></i>
+            <label style="display:block; text-align:right; margin-bottom:5px; font-size:0.9rem; color:#666;">اختر السرعة المفضلة:</label>
+            <select id="speedSelectBranches">
+                <option>🚀 سرعة مفتوحة (VIP)</option>
+                <option>🎮 سرعة ألعاب (Gaming)</option>
+                <option>💰 سرعة اقتصادية</option>
+            </select>
+
+            <div style="text-align: right; margin-bottom: 15px;">
+                <h4 style="margin-bottom:10px; color:#555;">📍 فروعنا:</h4>
+                <div class="list-item"><span>الفرع الرئيسي</span> <span style="color:#777">شارع الخمسين</span></div>
+                <div class="list-item"><span>فرع الجامعة</span> <span style="color:#777">بجوار البوابة</span></div>
             </div>
 
-            <div class="select-box">
-                <span>🚀 سرعة مفتوحة (VIP)</span>
-                <i class="fas fa-info-circle" style="color: #555;"></i>
+            <div style="text-align: right; margin-bottom: 20px;">
+                <h4 style="margin-bottom:10px; color:#555;">🏷️ أسعار الكروت:</h4>
+                <div class="list-item"><span>باقة ساعة</span> <span class="price-tag">100 ريال</span></div>
+                <div class="list-item"><span>باقة يوم</span> <span class="price-tag">500 ريال</span></div>
+                <div class="list-item"><span>باقة أسبوع</span> <span class="price-tag">2000 ريال</span></div>
             </div>
 
-            <button type="submit" class="btn-login">
-                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            <button onclick="openWhatsApp()" class="btn btn-wa">
+                <i class="fab fa-whatsapp"></i> تواصل معنا (739367154)
             </button>
-        </form>
-
-        <div class="secondary-actions">
-            <button class="btn-secondary">
-                <i class="fas fa-clipboard-list"></i> الباقات
-            </button>
-            <button class="btn-secondary">
-                <i class="fas fa-map-marker-alt"></i> الفروع
+            
+            <button onclick="switchView('login')" class="btn btn-outline" style="margin-top: 10px;">
+                <i class="fas fa-arrow-right"></i> رجوع للرئيسية
             </button>
         </div>
 
-        <button class="btn-whatsapp" onclick="window.open('https://wa.me/96700000000', '_blank')">
-            <i class="fab fa-whatsapp"></i> واتساب
-        </button>
-    </div>
-
-    <div class="ticker-wrap">
-        <div class="ticker">
-            🔥 باقة VIP الجديدة: سرعة تحميل خيالية وأسعار منافسة! ساعات مجانية عند شحن 500 ريال 🔥
+        <div id="view-success" class="view-section">
+            <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+            <h2 style="color: #2ecc71;">تم تسجيل الدخول!</h2>
+            <p class="subtitle">جاري تحويلك لصفحة المعلومات...</p>
+            <div style="margin-top: 20px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 20px; color: #ccc;"></i>
+            </div>
         </div>
+
+        <div id="view-info" class="view-section">
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
+            <h3 id="welcomeMsg">أهلاً بك</h3>
+            <span style="color: #2ecc71; font-weight: bold; display: block; margin-bottom: 20px;">● متصل بالإنترنت</span>
+
+            <div class="info-row">
+                <span class="label">رقم الكرت</span>
+                <span class="value" id="displayCardNumber">--</span>
+            </div>
+            <div class="info-row">
+                <span class="label">السرعة</span>
+                <span class="value">VIP Max</span>
+            </div>
+            <div class="info-row">
+                <span class="label">وقت البدء</span>
+                <span class="value" id="startTime">--:--</span>
+            </div>
+            <div class="info-row">
+                <span class="label">عنوان IP</span>
+                <span class="value">192.168.88.15</span>
+            </div>
+
+            <button onclick="handleLogout()" class="btn btn-logout">
+                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+            </button>
+        </div>
+
     </div>
 
     <script>
-        // دالة بسيطة للتعامل مع ضغط الزر
+        // الأرقام المسموح بها
+        const VALID_CARDS = ['7166', '0000'];
+        const WHATSAPP_NUMBER = '967739367154';
+
+        // دالة التنقل بين الأقسام
+        function switchView(viewId) {
+            // إخفاء جميع الأقسام
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            // إظهار القسم المطلوب
+            document.getElementById('view-' + viewId).classList.add('active');
+        }
+
+        // دالة فتح الواتساب
+        function openWhatsApp() {
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}`, '_blank');
+        }
+
+        // دالة معالجة تسجيل الدخول
         function handleLogin(e) {
-            e.preventDefault(); // منع إعادة تحميل الصفحة
-            const input = document.querySelector('.input-field').value;
-            
-            if(input) {
-                // هنا يمكنك وضع كود للتحقق أو التوجيه
-                alert("جاري محاولة الدخول بالكارت رقم: " + input);
-                // window.location.href = "https://google.com"; // مثال للتوجيه
+            e.preventDefault();
+            const inputField = document.getElementById('cardInput');
+            const errorText = document.getElementById('errorText');
+            const cardValue = inputField.value;
+
+            // التحقق من صحة الرقم
+            if (VALID_CARDS.includes(cardValue)) {
+                // الرقم صحيح
+                errorText.style.display = 'none';
+                inputField.classList.remove('shake', 'error-border');
+                
+                // حفظ البيانات
+                localStorage.setItem('userCard', cardValue);
+                
+                // الانتقال لصفحة النجاح
+                switchView('success');
+
+                // الانتظار 3 ثواني ثم الانتقال للمعلومات
+                setTimeout(() => {
+                    showInfoPage(cardValue);
+                }, 3000);
+
+            } else {
+                // الرقم خاطئ
+                errorText.style.display = 'block';
+                inputField.classList.add('shake');
+                
+                // إزالة الاهتزاز ليمكن تكراره
+                setTimeout(() => {
+                    inputField.classList.remove('shake');
+                }, 500);
             }
         }
 
-        // تغيير التحية والأيقونة تلقائياً حسب الوقت
-        const hour = new Date().getHours();
-        const greetingElement = document.querySelector('h2');
-        const iconElement = document.querySelector('.moon-icon');
-
-        if (hour >= 6 && hour < 18) {
-            greetingElement.innerText = "صباح الخير في عزيز نت";
-            iconElement.className = "fas fa-sun moon-icon"; // أيقونة شمس
-            iconElement.style.color = "#f39c12";
+        // دالة إعداد وعرض صفحة المعلومات
+        function showInfoPage(cardNum) {
+            const now = new Date();
+            const timeString = now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
+            
+            document.getElementById('displayCardNumber').innerText = cardNum;
+            document.getElementById('welcomeMsg').innerText = "المستخدم: " + cardNum;
+            document.getElementById('startTime').innerText = timeString;
+            
+            switchView('info');
         }
+
+        // دالة تسجيل الخروج
+        function handleLogout() {
+            if(confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                localStorage.removeItem('userCard');
+                document.getElementById('cardInput').value = ''; // تصفير الحقل
+                switchView('login');
+            }
+        }
+
+        // عند تحميل الصفحة: تحقق إذا كان المستخدم مسجل دخول سابقاً
+        window.onload = function() {
+            const savedCard = localStorage.getItem('userCard');
+            if(savedCard) {
+                showInfoPage(savedCard);
+            }
+        };
     </script>
 </body>
 </html>
+
