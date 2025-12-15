@@ -1,51 +1,265 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Login</title>
-<style>
-    body{font-family:Tahoma,sans-serif;background:#f0f2f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;color:#333}
-    .card{background:#fff;padding:20px;width:100%;max-width:320px;border-radius:10px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-    input,button{width:100%;box-sizing:border-box;padding:10px;margin:5px 0;border-radius:5px;border:1px solid #ddd}
-    button{background:#007bff;color:#fff;border:none;font-weight:bold;cursor:pointer} button:hover{background:#0056b3}
-    table{width:100%;font-size:12px;border-collapse:collapse;margin-top:5px} th,td{border:1px solid #eee;padding:5px}
-    summary{cursor:pointer;margin:8px 0;font-weight:bold;color:#555;list-style:none;outline:none} summary::-webkit-details-marker{display:none}
-    .err{color:red;font-size:12px;margin-bottom:5px;background:#ffe6e6;padding:5px;border-radius:4px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - عزيز نت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FF512F, #DD2476); /* تدرج لوني برتقالي/أحمر */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* الحاوية الرئيسية (الكارد) */
+        .login-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px); /* تأثير الزجاج */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* أيقونة الواي فاي */
+        .wifi-icon {
+            font-size: 3rem;
+            color: #00f2fe;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .moon-icon {
+            font-size: 1.5rem;
+            color: #f1c40f;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        /* حقول الإدخال */
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            padding-left: 40px; /* مساحة للأيقونة */
+            border: none;
+            border-radius: 10px;
+            background: #f0f0f0;
+            font-size: 1rem;
+            color: #333;
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        /* القائمة المنسدلة الشكلية */
+        .select-box {
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        /* زر تسجيل الدخول */
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-login:hover {
+            transform: scale(1.02);
+        }
+
+        /* الأزرار السفلية (فروع وباقات) */
+        .secondary-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* زر الواتساب */
+        .btn-whatsapp {
+            width: 100%;
+            padding: 12px;
+            background: #25D366;
+            border: none;
+            border-radius: 30px; /* دائري أكثر */
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+        }
+
+        /* الشريط المتحرك في الأسفل */
+        .ticker-wrap {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #000;
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .ticker {
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+    </style>
 </head>
 <body>
-<div class="card">
-    <h2 style="margin:0 0 15px;color:#007bff">شبكة الواي فاي</h2>
-    
-    $(if error)<div class="err">$(error)</div>$(endif)
-    
-    <form action="$(link-login-only)" method="post">
-        <input type="hidden" name="dst" value="$(link-orig)">
-        <input type="hidden" name="popup" value="true">
-        <input name="username" type="text" placeholder="رقم الكرت / المستخدم" required>
-        <input name="password" type="password" placeholder="كلمة المرور (اختياري)">
-        <button type="submit">تسجيل الدخول</button>
-    </form>
 
-    <details>
-        <summary>🔻 قائمة الأسعار والسرعات</summary>
-        <table>
-            <tr><th>الفئة</th><th>الوقت</th><th>السرعة</th><th>السعر</th></tr>
-            <tr><td>أبو 100</td><td>ساعتين</td><td>2 ميجا</td><td>100</td></tr>
-            <tr><td>أبو 200</td><td>يوم</td><td>4 ميجا</td><td>200</td></tr>
-            <tr><td>أبو 500</td><td>أسبوع</td><td>مفتوح</td><td>500</td></tr>
-        </table>
-    </details>
-
-    <details>
-        <summary>🔻 نقاط البيع</summary>
-        <div style="font-size:13px;text-align:right;margin-top:5px;line-height:1.6">
-            • بقالة الأمانة (الشارع العام)<br>
-            • سوبر ماركت التوفيق<br>
-            • مكتبة الطالب
+    <div class="login-card">
+        <div class="wifi-icon">
+            <i class="fas fa-wifi"></i>
         </div>
-    </details>
-    <p style="font-size:10px;color:#888;margin-top:15px">للدعم الفني: 777000000</p>
-</div>
+
+        <h2>أمسية سعيدة في عزيز نت</h2>
+        <i class="fas fa-moon moon-icon"></i>
+        <p class="subtitle">🚀 سجل دخولك واستمتع بالسرعة القصوى</p>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            
+            <div class="input-group">
+                <input type="number" class="input-field" placeholder="رقم الكرت (مثال: 7166)" required>
+                <i class="far fa-credit-card input-icon"></i>
+            </div>
+
+            <div class="select-box">
+                <span>🚀 سرعة مفتوحة (VIP)</span>
+                <i class="fas fa-info-circle" style="color: #555;"></i>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </button>
+        </form>
+
+        <div class="secondary-actions">
+            <button class="btn-secondary">
+                <i class="fas fa-clipboard-list"></i> الباقات
+            </button>
+            <button class="btn-secondary">
+                <i class="fas fa-map-marker-alt"></i> الفروع
+            </button>
+        </div>
+
+        <button class="btn-whatsapp" onclick="window.open('https://wa.me/96700000000', '_blank')">
+            <i class="fab fa-whatsapp"></i> واتساب
+        </button>
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            🔥 باقة VIP الجديدة: سرعة تحميل خيالية وأسعار منافسة! ساعات مجانية عند شحن 500 ريال 🔥
+        </div>
+    </div>
+
+    <script>
+        // دالة بسيطة للتعامل مع ضغط الزر
+        function handleLogin(e) {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+            const input = document.querySelector('.input-field').value;
+            
+            if(input) {
+                // هنا يمكنك وضع كود للتحقق أو التوجيه
+                alert("جاري محاولة الدخول بالكارت رقم: " + input);
+                // window.location.href = "https://google.com"; // مثال للتوجيه
+            }
+        }
+
+        // تغيير التحية والأيقونة تلقائياً حسب الوقت
+        const hour = new Date().getHours();
+        const greetingElement = document.querySelector('h2');
+        const iconElement = document.querySelector('.moon-icon');
+
+        if (hour >= 6 && hour < 18) {
+            greetingElement.innerText = "صباح الخير في عزيز نت";
+            iconElement.className = "fas fa-sun moon-icon"; // أيقونة شمس
+            iconElement.style.color = "#f39c12";
+        }
+    </script>
 </body>
 </html>
