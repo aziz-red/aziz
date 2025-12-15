@@ -19,9 +19,70 @@
             align-items: center;
             overflow-x: hidden;
             padding: 20px;
+            padding-top: 60px; /* مسافة إضافية عشان الشريط العلوي */
         }
 
-        /* حاوية البطاقة الرئيسية */
+        /* --- شريط الأخبار الجديد --- */
+        .news-ticker-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #DD2476;
+        }
+
+        .ticker-label {
+            background: linear-gradient(to right, #FF512F, #DD2476);
+            color: white;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .ticker-wrapper {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-content {
+            white-space: nowrap;
+            position: absolute;
+            animation: marquee 20s linear infinite;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* تعديل الحركة لتناسب اللغة العربية (من اليمين لليسار في الحركة) */
+        @keyframes marquee {
+            0% { transform: translateX(100vw); } /* يبدأ من خارج الشاشة يمين */
+            100% { transform: translateX(-100%); } /* ينتهي خارج الشاشة يسار */
+        }
+
+        /* فاصل بين الأخبار */
+        .news-separator {
+            margin: 0 20px;
+            color: #DD2476;
+        }
+
+        /* --- حاوية البطاقة الرئيسية --- */
         .main-card {
             background: rgba(255, 255, 255, 0.95);
             width: 100%;
@@ -114,9 +175,32 @@
         .label { color: #777; } .value { font-weight: bold; color: #333; }
         .user-avatar { width: 70px; height: 70px; background: #eee; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #777; }
 
+        /* توافق للجوال */
+        @media (max-width: 480px) {
+            .ticker-label { padding: 0 10px; font-size: 0.8rem; }
+            .ticker-content { font-size: 0.85rem; }
+        }
+
     </style>
 </head>
 <body>
+
+    <div class="news-ticker-container">
+        <div class="ticker-label">
+            <i class="fas fa-bullhorn" style="margin-left: 8px;"></i> تنويه هام
+        </div>
+        <div class="ticker-wrapper">
+            <div class="ticker-content">
+                🎉 أهلاً بكم في شبكة عزيز نت! 
+                <span class="news-separator">|</span> 
+                🚀 تم إضافة سيرفرات جديدة للألعاب بسرعة خيالية 
+                <span class="news-separator">|</span> 
+                📢 خصم 20% على باقات الشهر بمناسبة الافتتاح 
+                <span class="news-separator">|</span> 
+                💡 للإستفسار أو الدعم الفني يرجى التواصل عبر الواتساب.
+            </div>
+        </div>
+    </div>
 
     <div class="main-card">
         
