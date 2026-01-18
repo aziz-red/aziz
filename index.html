@@ -20,7 +20,7 @@
         @keyframes m{0%{transform:translateX(-20%)}100%{transform:translateX(calc(100vw + 75%))}}
         .news-separator{margin:0 25px;color:var(--m);font-size:1.1em}
 
-        /* التصميم العام */
+        /* بقية التصميم */
         .main-card{background:rgba(255,255,255,.95);width:100%;max-width:420px;border-radius:20px;padding:30px 20px;box-shadow:0 10px 40px rgba(0,0,0,.2);position:relative;text-align:center}
         .view-section{display:none;animation:f .4s ease-in-out}
         .view-section.active{display:block}
@@ -41,25 +41,46 @@
         .btn-wa{background:#25D366;box-shadow:0 4px 15px rgba(37,211,102,.3)}
         .btn-outline{background:0 0;border:2px solid #eee;color:#555}
         .btn-scan{background:var(--scan);box-shadow:0 4px 15px rgba(142,68,173,.3);margin-bottom:15px} 
+        .btn-logout{background:#ff4757;color:var(--w);margin-top:20px}
+        .secondary-actions{display:flex;gap:10px;margin-top:20px}
+        .btn-small{flex:1;padding:10px;font-size:.9rem;border-radius:8px}
+        .shake{animation:s .5s;border-color:#ff4757!important;background:#ffe0e3}
+        @keyframes s{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+        .error-msg{color:#ff4757;font-size:.85rem;margin-top:-10px;display:none;font-weight:700;align-items:center;gap:5px}
+        .list-item{display:flex;justify-content:space-between;padding:8px;background:#f8f9fa;border-radius:6px;margin-bottom:6px;font-size:.9rem;border:1px solid #eee}
+        .price-tag{background:var(--t);color:var(--w);padding:2px 8px;border-radius:90px;font-size:.8rem}
+        .success-icon{width:80px;height:80px;color:#2ecc71;margin:0 auto 20px;animation:p .6s cubic-bezier(.68,-.55,.265,1.55)}
+        @keyframes p{from{transform:scale(0)}to{transform:scale(1)}}
+        .spinner-container{margin-top:20px;display:flex;justify-content:center}
+        .spinner{width:48px;height:48px;border:6px solid #eee;border-top-color:var(--m);border-radius:50%;animation:sp .8s linear infinite}
         
-        /* حالة التحميل */
-        #loading-overlay { display:none; flex-direction:column; align-items:center; margin:20px 0; }
-        .spinner{width:40px;height:40px;border:4px solid #f3f3f3;border-top:4px solid var(--scan);border-radius:50%;animation:sp .8s linear infinite}
-        @keyframes sp{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-
-        /* اخفاء منطقة القراءة القديمة */
-        #reader { display: none; }
+        #reader {display:none;} /* إخفاء عنصر القارئ لأنه سيعمل في الخلفية */
+        
+        @media (max-width:480px){.ticker-label{padding:0 10px;font-size:.8rem}.ticker-content{font-size:.85rem}}
     </style>
 </head>
 <body>
     <div class="news-ticker-container">
-        <div class="ticker-label">تنويه هام</div>
+        <div class="ticker-label">
+            <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="2.24" stroke-linecap="round" stroke-linejoin="round"><circle cx="29" cy="51" r="2"/><circle cx="16.1" cy="12.5" r="1.1"/><circle cx="39.1" cy="49.5" r="1.1"/><path d="M27.6 6.1h3m-3 0h3M8.6 36.1l3.2 14.2 4.9-1.1-2.6-11.7"/><circle cx="5.1" cy="27.5" r="1.1"/><circle cx="5.1" cy="30.5" r="1.1"/><circle cx="50.5" cy="28.5" r="6.5"/><path d="M53 26l-5 5"/><circle cx="48.5" cy="26.5" r="1.1"/><circle cx="52.5" cy="30.5" r="1.1"/><path d="M45 18h10a3 3 0 003-3v0a3 3 0 00-3-3h-2M51 39h4a3 3 0 013 3v0a3 3 0 01-3 3h-2M42 18h-3M48 39h-9M39 35h4M39 22h5M39 26h2M39 31h2M9 22H5.2A4.2 4.2 0 001 26.2v5.6A4.2 4.2 0 005.2 36H9l26 7V15ZM23 25v8M26 24v10M29 23v12M9 22v14"/></svg>
+            تنويه هام
+        </div>
         <div class="ticker-wrapper">
             <div class="ticker-content">
-                <span class="ticker-text-fix">🎉 أهلاً بكم في شبكة عزيز نت | عروض مميزة وأسعار منافسة وسرعات عالية! <span class="news-separator">|</span> 💡 للدعم الفني: 739367154</span>
+                <span class="ticker-text-fix">
+                    🎉 أهلاً بكم في شبكة عزيز نت يوجد عروض مميزة جدا وأسعار منافسة وسرعات عالية جدا! 
+                    <span class="ticker-text-fix">
+                    🎉عزيز عبدالباسط بجاش صالح قاسم علي مانع الحميري!
+                    <span class="news-separator">|</span> 
+                    🚀 تم إضافة سيرفرات جديدة للألعاب بسرعة خيالية 
+                    <span class="news-separator">|</span> 
+                    💡 للإستفسار أو الدعم الفني يرجى التواصل عبر الواتساب 739367154.
+                </span>
             </div>
         </div>
     </div>
+
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
 
     <div class="main-card">
         <div id="view-login" class="view-section active">
@@ -68,7 +89,6 @@
             </div>
             <h2>أمسية سعيدة</h2>
             <p class="subtitle">سجل دخولك واستمتع بالسرعة القصوى 🚀</p>
-            
             <form onsubmit="handleLogin(event)">
                 <div class="input-group">
                     <input type="tel" id="cardInput" class="input-field" placeholder="رقم الكرت (مثال: 7166)" required>
@@ -77,105 +97,147 @@
                     </div>
                 </div>
                 
-                <input type="file" id="nativeCameraInput" accept="image/*" capture="environment" style="display:none">
-                
                 <button type="button" onclick="triggerNativeCamera()" class="btn btn-scan">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                    تصوير الكرت بكاميرا الهاتف
+                    تصوير الكرت بالكاميرا
                 </button>
 
-                <div id="loading-overlay">
-                    <div class="spinner"></div>
-                    <p style="font-size:0.8rem; margin-top:10px; color:var(--scan)">جاري استخراج الكود من الصورة...</p>
-                </div>
-
-                <p id="errorText" class="error-msg" style="color:#ff4757; font-size:0.85rem; display:none; margin-bottom:10px;">الكود غير واضح أو خاطئ! حاول التصوير بوضوح.</p>
-
+                <p id="errorText" class="error-msg">
+                    <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>
+                    رقم الكرت خاطئ! حاول مرة أخرى.
+                </p>
                 <select id="speedSelectMain">
                     <option>🚀 سرعة مفتوحة (VIP)</option>
                     <option>🎮 سرعة ألعاب (Gaming)</option>
                     <option>💰 سرعة اقتصادية</option>
                 </select>
-
-                <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+                <button type="submit" class="btn btn-primary">
+                    <svg viewBox="0 0 512 512" fill="currentColor"><path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"/></svg>
+                    تسجيل الدخول
+                </button>
             </form>
-
             <div class="secondary-actions">
-                <button onclick="switchView('branches')" class="btn btn-outline btn-small">الفروع والأسعار</button>
-                <button onclick="openWhatsApp()" class="btn btn-wa btn-small">واتساب</button>
+                <button onclick="switchView('branches')" class="btn btn-outline btn-small">
+                   الفروع والأسعار
+                </button>
+                <button onclick="openWhatsApp()" class="btn btn-wa btn-small">
+                    واتساب
+                </button>
             </div>
         </div>
-
-        <div id="view-success" class="view-section">
-            <div class="success-icon"><svg viewBox="0 0 512 512" fill="#2ecc71"><path d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM227.3 387.3l184-184c6.2-6.2 6.2-16.4 0-22.6l-22.6-22.6c-6.2-6.2-16.4-6.2-22.6 0L216 308.1l-70.1-70.1c-6.2-6.2-16.4-6.2-22.6 0l-22.6 22.6c-6.2 6.2-6.2 16.4 0 22.6l104 104c6.2 6.2 16.4 6.2 22.6 0z"/></svg></div>
-            <h2 style="color:#2ecc71">تم الدخول بنجاح!</h2>
-        </div>
+        
+        <div id="reader"></div>
 
         <div id="view-branches" class="view-section">
             <h3>الفروع والخدمات</h3>
             <div class="list-item"><span>باقة ساعة</span> <span class="price-tag">100 ريال</span></div>
+            <div class="list-item"><span>باقة يوم</span> <span class="price-tag">500 ريال</span></div>
             <button onclick="switchView('login')" class="btn btn-outline">رجوع</button>
         </div>
-    </div>
 
-    <div id="reader"></div>
+        <div id="view-success" class="view-section">
+            <div class="success-icon">
+                <svg viewBox="0 0 512 512" fill="currentColor"><path d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM227.3 387.3l184-184c6.2-6.2 6.2-16.4 0-22.6l-22.6-22.6c-6.2-6.2-16.4-6.2-22.6 0L216 308.1l-70.1-70.1c-6.2-6.2-16.4-6.2-22.6 0l-22.6 22.6c-6.2 6.2-6.2 16.4 0 22.6l104 104c6.2 6.2 16.4 6.2 22.6 0z"/></svg>
+            </div>
+            <h2 style="color:#2ecc71">تم تسجيل الدخول!</h2>
+            <div class="spinner-container"><div class="spinner"></div></div>
+        </div>
+
+        <div id="view-info" class="view-section">
+            <div class="user-avatar">
+                <svg viewBox="0 0 448 512" fill="currentColor"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/></svg>
+            </div>
+            <h3 id="welcomeMsg">أهلاً بك</h3>
+            <div class="info-row"><span class="label">رقم الكرت</span><span class="value" id="displayCardNumber">--</span></div>
+            <button onclick="handleLogout()" class="btn btn-logout">تسجيل الخروج</button>
+        </div>
+    </div>
 
     <script>
         const VALID_CARDS=['7166','0000'], WHATSAPP_NUMBER='967739367154';
         const el=i=>document.getElementById(i);
-        const html5QrCode = new Html5Qrcode("reader");
+        let html5QrCode; 
 
         function switchView(id){
             document.querySelectorAll('.view-section').forEach(e=>e.classList.remove('active'));
-            el('view-'+id).classList.add('active');
+            const view = el('view-'+id);
+            if(view) view.classList.add('active');
         }
-
+        
         const openWhatsApp=()=>window.open(`https://wa.me/${WHATSAPP_NUMBER}`,'_blank');
 
-        // الوظيفة الأساسية: فتح تطبيق الكاميرا
+        // وظيفة تشغيل الكاميرا الأصلية
         function triggerNativeCamera() {
-            el('nativeCameraInput').click();
+            el('cameraInput').click();
         }
 
-        // معالجة الصورة بعد التقاطها
-        el('nativeCameraInput').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            el('loading-overlay').style.display = 'flex';
-            el('errorText').style.display = 'none';
-
-            try {
-                // مسح الكود من الملف الملتقط
-                const decodedText = await html5QrCode.scanFile(file, true);
-                el('cardInput').value = decodedText;
-                el('loading-overlay').style.display = 'none';
-                
-                // تسجيل دخول تلقائي بعد النجاح
-                handleLogin();
-            } catch (err) {
-                el('loading-overlay').style.display = 'none';
-                el('errorText').style.display = 'block';
-                console.error("QR Scan Error:", err);
+        // الاستماع لتغيير الملف (التقاط الصورة)
+        el('cameraInput').addEventListener('change', (e) => {
+            if (e.target.files.length === 0) return;
+            
+            const imageFile = e.target.files[0];
+            
+            if (!html5QrCode) {
+                html5QrCode = new Html5Qrcode("reader");
             }
+
+            // مسح الصورة
+            html5QrCode.scanFile(imageFile, true)
+            .then(decodedText => {
+                // 1. إدخال النص تلقائياً
+                el('cardInput').value = decodedText;
+                
+                // 2. النسخ للحافظة
+                navigator.clipboard.writeText(decodedText).then(() => {
+                    alert("تم التقاط الكرت ونسخه: " + decodedText);
+                }).catch(err => {
+                    console.error("فشل النسخ: ", err);
+                });
+
+                // تسجيل الدخول التلقائي
+                handleLogin(); 
+            })
+            .catch(err => {
+                alert("لم يتم العثور على باركود في الصورة، حاول التقاط صورة أوضح.");
+            });
+            
+            // إعادة تعيين المدخل ليسمح بالتصوير مرة أخرى لنفس الملف إذا لزم الأمر
+            el('cameraInput').value = '';
         });
 
+        // منطق الدخول (كما هو)
         function handleLogin(e){
             if(e) e.preventDefault();
-            const i=el('cardInput'), v=i.value;
-            if(v){ // هنا يمكنك إضافة شرط VALID_CARDS.includes(v) إذا كنت تريد تقييد الأرقام
+            const i=el('cardInput'),err=el('errorText'),v=i.value;
+            if(VALID_CARDS.includes(v)){
+                err.style.display='none';i.classList.remove('shake');
                 localStorage.setItem('userCard',v);
                 switchView('success');
+                setTimeout(()=>showInfoPage(v),2000);
+            }else{
+                err.style.display='flex';i.classList.add('shake');
+                setTimeout(()=>i.classList.remove('shake'),500);
+            }
+        }
+
+        function showInfoPage(c){
+            el('displayCardNumber').innerText=c;
+            el('welcomeMsg').innerText="المستخدم: "+c;
+            switchView('info');
+        }
+
+        function handleLogout(){
+            if(confirm('هل أنت متأكد من تسجيل الخروج؟')){
+                localStorage.removeItem('userCard');
+                el('cardInput').value='';
+                switchView('login');
             }
         }
 
         window.onload=()=>{
             const c=localStorage.getItem('userCard');
-            if(c) {
-                el('cardInput').value = c;
-            }
+            if(c) showInfoPage(c);
         };
     </script>
 </body>
 </html>
-
