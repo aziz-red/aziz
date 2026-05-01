@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Tools | أدوات مجانية للصور و PDF</title>
+    <meta name="description"
+        content="أدوات مجانية وسريعة لتحويل الصور وملفات PDF. تعمل مباشرة في المتصفح للحفاظ على الخصوصية.">
+
+    <!-- Google Fonts: Cairo & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3940256099942544"
+        crossorigin="anonymous"></script>
+
+    <!-- Libraries (CDNs) -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://unpkg.com/tesseract.js@5.0.3/dist/tesseract.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="header glassmorphism">
+        <div class="container header-content">
+            <a href="#" class="logo" onclick="app.navigate('home')">
+                <i data-lucide="zap" class="logo-icon"></i>
+                <span>Free Tools</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#image-tools" onclick="app.filterCategory('image')">الصور</a>
+                <a href="#pdf-tools" onclick="app.filterCategory('pdf')">الـ PDF</a>
+                <button id="theme-toggle" class="icon-btn" aria-label="تغيير المظهر">
+                    <i data-lucide="moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <!-- Home View -->
+        <section id="view-home" class="view active">
+            <div class="hero-section text-center">
+                <h1 class="hero-title">كل الأدوات التي تحتاجها <br><span class="gradient-text">في مكان واحد</span></h1>
+                <p class="hero-subtitle">تحويل، ضغط، وتعديل الصور وملفات PDF بسرعة فائقة وأمان تام. لا يتم رفع أي ملفات،
+                    كل شيء يتم في متصفحك.</p>
+            </div>
+
+            <!-- AdSense Test Ad Unit -->
+            <div style="text-align: center; margin: 30px auto; max-width: 800px; min-height: 100px; display: flex; justify-content: center; align-items: center; background-color: rgba(128, 128, 128, 0.1); border-radius: 12px; border: 1px dashed rgba(128, 128, 128, 0.4);">
+                <ins class="adsbygoogle"
+                    style="display:block; width: 100%; min-height: 90px;"
+                    data-ad-client="ca-pub-3940256099942544"
+                    data-ad-slot="1234567890"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="tools-grid" id="tools-container">
+                <!-- Tool cards will be injected here via JS -->
+            </div>
+        </section>
+
+        <!-- Tool Workspace View -->
+        <section id="view-tool" class="view hidden glassmorphism tool-workspace">
+            <div class="tool-header">
+                <button class="back-btn icon-btn" onclick="app.navigate('home')">
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <div class="tool-title-wrapper">
+                    <div class="tool-icon-large" id="workspace-icon"></div>
+                    <h2 id="workspace-title">عنوان الأداة</h2>
+                </div>
+            </div>
+
+            <div class="tool-body" id="workspace-body">
+                <!-- Specific tool UI will be injected here -->
+            </div>
+
+            <!-- AdSense Test Ad Unit (Tool Workspace) -->
+            <div style="text-align: center; margin: 30px auto; max-width: 800px; min-height: 100px; display: flex; justify-content: center; align-items: center; background-color: rgba(128, 128, 128, 0.1); border-radius: 12px; border: 1px dashed rgba(128, 128, 128, 0.4);">
+                <ins class="adsbygoogle"
+                    style="display:block; width: 100%; min-height: 90px;"
+                    data-ad-client="ca-pub-3940256099942544"
+                    data-ad-slot="0987654321"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer glassmorphism text-center">
+        <p>&copy; 2026 Free Tools.تم الانشاء بواسطة عزيز الشرعبي.</p>
+        <p>&copy; للتواصل 00967739367154</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">
+            <a href="privacy.html" style="color: var(--text-secondary); text-decoration: underline;">سياسة الخصوصية</a>
+        </p>
+    </footer>
+
+    <!-- App Scripts -->
+    <script src="js/tools/image-tools.js"></script>
+    <script src="js/tools/pdf-tools.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
